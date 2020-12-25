@@ -1,0 +1,61 @@
+Search…
+All gists
+Back to GitHub
+@Malaya2184 
+All npm scripts for development with sass
+ NPM Scripts
+/*npm install*/
+first initialize npm with package.json
+npm init
+then install the node sass
+npm install node-sass --save-dev
+
+if already have the package.json initialized with node-sass then just run
+npm install
+
+for install live server globally
+npm install live-server -g
+
+for watching the css changes
+
+"watch:sass": "node-sass sass/main.scss css/main.css -w"
+for run live server
+"devserver" : "live-server"
+
+for run all npm scripts
+first install
+npm install npm-run-all --save-dev
+
+then the scripts
+"start" : "npm-run-all --parallel devserver watch:sass"
+
+then build process
+
+first compile the sass to compile css file
+"compile:sass": "node-sass sass/main.scss css/main.comp.css"
+then install the concat package
+npm install concat --save-dev
+then concat the css file
+"concat:css": "concat -o css/main.concat.css css/main.css"
+the add prefixer for all browser
+first install prefix package
+npm install autoprefixer --save-dev
+then run to autoprefixer we need postcss
+npm install postcss-cli --save-dev
+then add prefix css
+"prefix:css": "postcss --use autoprefixer -b 'last 10 versions' css/main.concat.css -o css/main.prefix.css",
+then compress all the css file
+"compress:css": "node-sass css/main.concat.css --output-style compressed"
+the build script
+"build:css" : "npm-run-all compile:sass concat:css prefix:css compress:css"
+
+it will look like
+"watch:sass": "node-sass sass/main.scss css/main.css -w",
+    "compile:sass": "node-sass sass/main.scss css/main.comp.css",
+    "concat:css": "concat -o css/main.concat.css css/main.css",
+    "prefix:css": "postcss --use autoprefixer -b 'last 10 versions' css/main.concat.css -o css/main.prefix.css",
+    "compress:css": "node-sass css/main.concat.css --output-style compressed",
+    "build:css" : "npm-run-all compile:sass concat:css prefix:css compress:css"
+then run npm run build:css
+@Malaya2184
+Malaya2184 commented 10 hours ago
